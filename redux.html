@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <script src="./redux.js"></script>
+  </head>
+    Redux - vanelajs
+  
+  <script>
+const combineReducers = Redux.combineReducers;
+const Buy_Cake = {
+    "type": "Buy_Cake"
+}
+const Return_Cake = {
+    "type": "Return_Cake"
+}
+//app state
+const initialState = {
+    "numOfCakes": 10
+}
+
+const cakeReducer = function(state = initialState, action) {
+    switch (action.type) {
+        case "Buy_Cake":
+            console.log("buy cake")
+            return {
+                ...state,
+                numOfCakes: state.numOfCakes - 1,
+            }
+            break;
+        case "Return_Cake":
+            console.log("return cake")
+            return {
+                ...state,
+                numOfCakes: state.numOfCakes + 1
+            }
+            break;
+        default:
+            //console.log("default")
+            return initialState;
+    }
+}
+//creating a redux store
+const store = Redux.createStore(combineReducers({
+    "cake": cakeReducer
+}));
+//it runs any time the state changes
+store.subscribe(() => {
+    return console.log(store.getState());
+})
+store.dispatch(Buy_Cake);
+store.dispatch(Buy_Cake);
+store.dispatch(Buy_Cake);
+store.dispatch(Return_Cake);
+  </script>
+</html>
